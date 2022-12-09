@@ -1,76 +1,53 @@
 Config                            = {}
 
 Config.DrawDistance               = 10.0 -- How close do you need to be for the markers to be drawn (in GTA units).
-Config.MarkerType                 = {BossActions = 22, Vehicles = 36}
-Config.MarkerSize                 = {x = 1.5, y = 1.5, z = 0.5}
-Config.MarkerColor                = {r = 50, g = 50, b = 204}
 
-Config.EnablePlayerManagement     = true -- Enable if you want society managing.
-Config.EnableArmoryManagement     = true
-Config.EnableESXIdentity          = true -- Enable if you're using esx_identity.
-Config.EnableESXOptionalneeds     = true -- Enable if you're using esx_optionalneeds
-Config.EnableLicenses             = true -- Enable if you're using esx_license.
+Config.MaxInService               = -1 -- How much people can be in service at once?
+Config.EnablePlayerManagement     = true -- Enable society managing.
+Config.EnableSocietyOwnedVehicles = false
 
-Config.EnableHandcuffTimer        = true -- Enable handcuff timer? will unrestrain player after the time ends.
-Config.HandcuffTimer              = 10 * 60000 -- 10 minutes.
-
-Config.EnableJobBlip              = true -- Enable blips for cops on duty, requires esx_society.
-
-Config.EnableESXService           = false -- Enable esx service?
-Config.MaxInService               = -1 -- How many people can be in service at once? Set as -1 to have no limit
-
-Config.Locale                     = 'en'
+Config.Locale                     = 'it'
 
 Config.OxInventory                = ESX.GetConfig().OxInventory
 
-Config.PoliceStations = {
-
-	AMMU = {
-
-		Blip = {
-			Coords  = vector3(812.281311, -2145.995605, 29.364136),
-			Sprite  = 110,
-			Display = 110,
-			Scale   = 1.2,
-			Colour  = 35
-		},
-
-		Vehicles = {
-			{
-				Spawner = vector3(821.736267, -2144.057129, 28.774414),
-				InsideShop = vector3(228.5, -993.5, -99.5),
-				SpawnPoints = {
-					{coords = vector3(822.145081, -2137.608887, 29.279907), heading = 90.0, radius = 6.0}
-				}
-			}
-		},
-
-		BossActions = {
-			vector3(824.676941, -2150.452637, 29.616821)
-		}
-
-	}
-
+Config.AuthorizedVehicles = {
+	{model = 'rumpo', label = 'Rumpo'}
 }
 
-Config.AuthorizedVehicles = {
-	car = {
-		apprentice = {},
+Config.Zones = {
 
-		gunsmith = {
-			{model = 'rumpo', price = 20000}
-		},
+	VehicleSpawner = {
+		Pos   = {x = 821.340637, y = -2146.417480, z = 28.706909}, 
+		Size  = {x = 1.0, y = 1.0, z = 1.0},
+		Color = {r = 145, g = 30, b = 30},
+		Type  = 36, Rotate = true
+	},
 
-		armorychief = {
-			{model = 'rumpo', price = 18500}
-		},
+	VehicleSpawnPoint = {
+		Pos     = {x = 822.540649, y = -2134.575928, z = 29.279907},
+		Size    = {x = 1.5, y = 1.5, z = 1.0},
+		Type    = -1, Rotate = false,
+		Heading = 225.0
+	},
 
-		deputydirector = {
-			{model = 'rumpo', price = 70000}
-		},
+	VehicleDeleter = {
+		Pos   = {x = 822.540649, y = -2134.575928, z = 28.279907},
+		Size  = {x = 3.0, y = 3.0, z = 0.25},
+		Color = {r = 255, g = 0, b = 0},
+		Type  = 1, Rotate = false
+	},
 
-		boss = {
-			{model = 'rumpo', price = 70000}
-		}
+	AmmuActions = {
+		Pos   = {x = 812.479126, y = -2159.182373, z = 29.616821},
+		Size  = {x = 0.5, y = 0.5, z = 0.5},
+		Color = {r = 204, g = 204, b = 0},
+		Type  = 20, Rotate = true
+	},
+
+	Cloakroom = {
+		Pos     = {x = 810.065918, y = -2162.439453, z = 29.616821},
+		Size    = {x = 0.5, y = 0.5, z = 0.5},
+		Color   = {r = 204, g = 204, b = 0},
+		Type    = 21, Rotate = true
 	}
 }
