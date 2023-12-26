@@ -169,7 +169,9 @@ end
 
 function OpenAmmuActionsMenu()
     local elements = {
-        {unselectable = true, icon = "fas fa-ammu", title = _U('ammu')}
+        {unselectable = true, icon = "fas fa-ammu", title = _U('ammu')},
+        {icon = "fas fa-box",title = _U('deposit_stock'),value = 'put_stock'},
+        {icon = "fas fa-box", title = _U('take_stock'), value = 'get_stock'}
     }
 
     if Config.EnablePlayerManagement and ESX.PlayerData.job ~= nil and ESX.PlayerData.job.grade_name == 'boss' then
@@ -180,8 +182,15 @@ function OpenAmmuActionsMenu()
         }
     end
 
-    ESX.OpenContext("right", elements, function(_,element)
-        if element.value == 'boss_actions' then
+    ESX.OpenContext("right", elements, function(_, element)
+        if Config.OxInventory and (element.value == 'put_stock' or element.value == 'get_stock') then
+            exports.ox_inventory:openInventory('stash', 'society_ammu')
+            return ESX.CloseContext()
+        elseif element.value == 'put_stock' then
+            OpenPutStocksMenu()
+        elseif element.value == 'get_stock' then
+            OpenGetStocksMenu()
+        elseif element.value == 'boss_actions' then
             TriggerEvent('esx_society:openBossMenu', 'ammu', function(_, menu)
                 menu.close()
             end)
@@ -196,20 +205,23 @@ end
 function OpenMobileAmmuActionsMenu()
     local elements = {
         {unselectable = true, icon = "fas fa-ammu", title = _U('ammu')},
-        {icon = "fas fa-scroll", title = _U('billing'), value = "billing"}
+        {icon = "fas fa-scroll", title = _U('billing'), value = "billing"},
     }
 
-    ESX.OpenContext("right", elements, function(_,element)
+    ESX.OpenContext("right", elements, function(_, element)
         if element.value == "billing" then
-            ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing', {
-                title = _U('invoice_amount')
-            }, function(data, menu)
+            local elements2 = {
+                {unselectable = true, icon = "fas fa-ammu", title = element.title},
+                {title = _U('amount'), input = true, inputType = "number", inputMin = 1, inputMax = 250000, inputPlaceholder = _U('bill_amount')},
+                {icon = "fas fa-check-double", title = _U('confirm'), value = "confirm"}
+            }
 
-                local amount = tonumber(data.value)
+            ESX.OpenContext("right", elements2, function(menu2)
+                local amount = tonumber(menu2.eles[2].inputValue)
                 if amount == nil then
                     ESX.ShowNotification(_U('amount_invalid'))
                 else
-                    menu.close()
+                    ESX.CloseContext()
                     local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
                     if closestPlayer == -1 or closestDistance > 3.0 then
                         ESX.ShowNotification(_U('no_players_near'))
@@ -219,8 +231,6 @@ function OpenMobileAmmuActionsMenu()
                         ESX.ShowNotification(_U('billing_sent'))
                     end
                 end
-            end, function(_, menu)
-                menu.close()
             end)
         end
     end)
