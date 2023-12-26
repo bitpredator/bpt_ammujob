@@ -5,7 +5,7 @@ game 'gta5'
 description 'bpt_ammunation job'
 author 'bitpredator'
 lua54 'yes'
-version '0.0.4'
+version '1.0.0'
 
 shared_script '@es_extended/imports.lua'
 

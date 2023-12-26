@@ -5,16 +5,16 @@ jobs:
     name: Lint Resource
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Lint
         uses: iLLeniumStudios/fivem-lua-lint-action@v2
         with:
           capture: "junit.xml"
           args: "-t --formatter JUnit"
-          extra_libs: mysql
+          extra_libs: mysql+ox_lib
       - name: Generate Lint Report
         if: always()
-        uses: mikepenz/action-junit-report@v3
+        uses: mikepenz/action-junit-report@v4
         with:
           report_paths: "**/junit.xml"
           check_name: Linting Report

@@ -4,6 +4,7 @@ Config.MaxInService               = -1 -- How much people can be in service at o
 Config.EnablePlayerManagement     = true -- Enable society managing.
 Config.EnableSocietyOwnedVehicles = false
 Config.Locale                     = 'en'
+Config.OxInventory                = ESX.GetConfig().OxInventory
 
 Config.AuthorizedVehicles = {
 	{model = 'rumpo', label = 'Rumpo'}
